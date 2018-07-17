@@ -66,7 +66,7 @@ func CreateSafeJsonrpcConnPools(maxConns, maxIdle, connTimeout, callTimeout int,
 	return cp
 }
 
-// 同步发送, 完成发送或超时后 才能返回
+// 同步发送, 完成发送或超时后 才能返回，其他地方调用例子err = GraphConnPools.Call(addr, "Graph.Send", graphItems, resp)
 func (this *SafeRpcConnPools) Call(addr, method string, args interface{}, resp interface{}) error {
 	connPool, exists := this.Get(addr)
 	if !exists {

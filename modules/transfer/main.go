@@ -29,7 +29,7 @@ func main() {
 	cfg := flag.String("c", "cfg.json", "configuration file")
 	version := flag.Bool("v", false, "show version")
 	versionGit := flag.Bool("vg", false, "show version")
-	flag.Parse()
+	flag.Parse() //解析输入的参数
 
 	if *version {
 		fmt.Println(g.VERSION)
@@ -45,7 +45,7 @@ func main() {
 	// proc
 	proc.Start()
 
-	sender.Start()
+	sender.Start()  //发送初始化
 	receiver.Start()
 
 	// http

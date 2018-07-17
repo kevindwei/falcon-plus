@@ -29,9 +29,9 @@ var (
 	RecvDataFilter = nproc.NewDataFilter("RecvDataFilter", 5)
 )
 
-// 统计指标的整体数据
+// 统计指标的整体数据,
 var (
-	// 计数统计,正确计数,错误计数, ...
+	// 计数统计,正确计数,错误计数, ...每秒请求数
 	RecvCnt       = nproc.NewSCounterQps("RecvCnt")
 	RpcRecvCnt    = nproc.NewSCounterQps("RpcRecvCnt")
 	HttpRecvCnt   = nproc.NewSCounterQps("HttpRecvCnt")

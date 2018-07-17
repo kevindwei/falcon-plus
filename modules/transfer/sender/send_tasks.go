@@ -107,9 +107,9 @@ func forward2JudgeTask(Q *list.SafeListLimited, node string, concurrent int) {
 			// statistics
 			if !sendOk {
 				log.Printf("send judge %s:%s fail: %v", node, addr, err)
-				proc.SendToJudgeFailCnt.IncrBy(int64(count))
+				proc.SendToJudgeFailCnt.IncrBy(int64(count))//错误的send qps增加
 			} else {
-				proc.SendToJudgeCnt.IncrBy(int64(count))
+				proc.SendToJudgeCnt.IncrBy(int64(count)) //正确的send qps增加
 			}
 		}(addr, judgeItems, count)
 	}
@@ -141,7 +141,7 @@ func forward2GraphTask(Q *list.SafeListLimited, node string, addr string, concur
 			var err error
 			sendOk := false
 			for i := 0; i < 3; i++ { //最多重试3次
-				err = GraphConnPools.Call(addr, "Graph.Send", graphItems, resp)
+				err = GraphConnPools.Call(addr, "Graph.Send", graphItems, resp)  //rpc调用
 				if err == nil {
 					sendOk = true
 					break

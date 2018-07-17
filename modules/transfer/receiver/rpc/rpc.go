@@ -23,7 +23,7 @@ import (
 )
 
 func StartRpc() {
-	if !g.Config().Rpc.Enabled {
+	if !g.Config().Rpc.Enabled {  //判断全局配置文件是否允许rpc
 		return
 	}
 

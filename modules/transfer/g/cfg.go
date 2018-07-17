@@ -29,7 +29,7 @@ type HttpConfig struct {
 
 type RpcConfig struct {
 	Enabled bool   `json:"enabled"`
-	Listen  string `json:"listen"`
+	Listen  string `json:"listen"`    //监听的地址
 }
 
 type SocketConfig struct {

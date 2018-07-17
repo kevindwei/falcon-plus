@@ -65,12 +65,13 @@ func Start() {
 		MinStep = 30 //默认30s
 	}
 	//
-	initConnPools()
-	initSendQueues()
-	initNodeRings()
+	initConnPools() //初始化rpc连接池
+	initSendQueues() //初始化有限制的队列
+	initNodeRings() //一致性哈希
+
 	// SendTasks依赖基础组件的初始化,要最后启动
-	startSendTasks()
-	startSenderCron()
+	startSendTasks() //通过rpc调用进行发送task
+	startSenderCron()  //定时设置发送缓存大小
 	log.Println("send.Start, ok")
 }
 

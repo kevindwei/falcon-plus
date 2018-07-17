@@ -21,7 +21,7 @@ import (
 )
 
 func initConnPools() {
-	cfg := g.Config()
+	cfg := g.Config()  //cfg.go里面的 GlobalConfig
 
 	// judge
 	judgeInstances := nset.NewStringSet()
@@ -29,18 +29,18 @@ func initConnPools() {
 		judgeInstances.Add(instance)
 	}
 	JudgeConnPools = backend.CreateSafeRpcConnPools(cfg.Judge.MaxConns, cfg.Judge.MaxIdle,
-		cfg.Judge.ConnTimeout, cfg.Judge.CallTimeout, judgeInstances.ToSlice())
+		cfg.Judge.ConnTimeout, cfg.Judge.CallTimeout, judgeInstances.ToSlice()) //通过net/rpc模块实现rpc连接池
 
 	// tsdb
 	if cfg.Tsdb.Enabled {
 		TsdbConnPoolHelper = backend.NewTsdbConnPoolHelper(cfg.Tsdb.Address, cfg.Tsdb.MaxConns, cfg.Tsdb.MaxIdle, cfg.Tsdb.ConnTimeout, cfg.Tsdb.CallTimeout)
-	}
+	}     //net/rpc 连接池实现
 
 	// graph
-	graphInstances := nset.NewSafeSet()
+	graphInstances := nset.NewSafeSet()  //一个字典形式的结构体类
 	for _, nitem := range cfg.Graph.ClusterList {
 		for _, addr := range nitem.Addrs {
-			graphInstances.Add(addr)
+			graphInstances.Add(addr) //添加地址
 		}
 	}
 	GraphConnPools = backend.CreateSafeRpcConnPools(cfg.Graph.MaxConns, cfg.Graph.MaxIdle,

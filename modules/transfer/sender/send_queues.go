@@ -22,7 +22,7 @@ import (
 func initSendQueues() {
 	cfg := g.Config()
 	for node := range cfg.Judge.Cluster {
-		Q := nlist.NewSafeListLimited(DefaultSendQueueMaxSize)
+		Q := nlist.NewSafeListLimited(DefaultSendQueueMaxSize) //list基础上添加了最大值max
 		JudgeQueues[node] = Q
 	}
 
