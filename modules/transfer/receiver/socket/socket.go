@@ -47,6 +47,6 @@ func StartSocket() {
 			continue
 		}
 
-		go socketTelnetHandle(conn)
+		go socketTelnetHandle(conn) //和rpc的区别。。处理监听的地址,并发送到对应队列
 	}
 }

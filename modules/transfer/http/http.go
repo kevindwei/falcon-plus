@@ -43,7 +43,7 @@ func startHttpServer() {
 		return
 	}
 
-	configCommonRoutes()
+	configCommonRoutes() //路由绑定
 	configProcHttpRoutes()
 	configDebugHttpRoutes()
 
@@ -54,8 +54,8 @@ func startHttpServer() {
 		MaxHeaderBytes: 1 << 30,
 	}
 
-	log.Println("http.startHttpServer ok, listening", addr)
-	log.Fatalln(s.ListenAndServe())
+	log.Println("http.startHttpServer ok, listening", addr) //只打印
+	log.Fatalln(s.ListenAndServe()) //打印完后退出
 }
 
 func RenderJson(w http.ResponseWriter, v interface{}) {

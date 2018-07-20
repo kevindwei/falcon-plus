@@ -46,10 +46,10 @@ func main() {
 	proc.Start()
 
 	sender.Start()  //发送初始化
-	receiver.Start()
+	receiver.Start()  //监听地址，接受内容并转发到对应队列
 
 	// http
-	http.Start()
+	http.Start()  //建立http连接
 
 	select {}
 }

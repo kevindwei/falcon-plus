@@ -38,12 +38,12 @@ func socketTelnetHandle(conn net.Conn) {
 
 	for {
 		conn.SetReadDeadline(time.Now().Add(timeout))
-		line, err := buf.ReadString('\n')
+		line, err := buf.ReadString('\n') //读取监听地址接收的信息
 		if err != nil {
 			break
 		}
 
-		line = strings.Trim(line, "\n")
+		line = strings.Trim(line, "\n") //去掉换行符
 
 		if line == "quit" {
 			break
@@ -53,7 +53,7 @@ func socketTelnetHandle(conn net.Conn) {
 			continue
 		}
 
-		t := strings.Fields(line)
+		t := strings.Fields(line) //\t \n \v \f \r ' '都会被这个分割
 		if len(t) < 2 {
 			continue
 		}
@@ -64,7 +64,7 @@ func socketTelnetHandle(conn net.Conn) {
 			continue
 		}
 
-		item, err := convertLine2MetaData(t[1:])
+		item, err := convertLine2MetaData(t[1:])  //数据类型转换
 		if err != nil {
 			continue
 		}
@@ -97,7 +97,7 @@ func convertLine2MetaData(fields []string) (item *cmodel.MetaData, err error) {
 	}
 
 	endpoint, metric := fields[0], fields[1]
-	ts, err := strconv.ParseInt(fields[2], 10, 64)
+	ts, err := strconv.ParseInt(fields[2], 10, 64) //str ->int
 	if err != nil {
 		return
 	}

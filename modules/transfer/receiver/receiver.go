@@ -20,6 +20,6 @@ import (
 )
 
 func Start() {
-	go rpc.StartRpc()
-	go socket.StartSocket()
+	go rpc.StartRpc() //启动rpc
+	go socket.StartSocket()  //处理监听的地址,并发送到对应队列
 }

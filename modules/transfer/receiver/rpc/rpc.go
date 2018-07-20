@@ -27,13 +27,13 @@ func StartRpc() {
 		return
 	}
 
-	addr := g.Config().Rpc.Listen
-	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)
+	addr := g.Config().Rpc.Listen //获取rpc监听的地址
+	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)     //获取tcpaddr
 	if err != nil {
 		log.Fatalf("net.ResolveTCPAddr fail: %s", err)
 	}
 
-	listener, err := net.ListenTCP("tcp", tcpAddr)
+	listener, err := net.ListenTCP("tcp", tcpAddr)     //监听端口, "tcp", "tcp4", "tcp6",默认为tcp
 	if err != nil {
 		log.Fatalf("listen %s fail: %s", addr, err)
 	} else {
@@ -41,7 +41,7 @@ func StartRpc() {
 	}
 
 	server := rpc.NewServer()
-	server.Register(new(Transfer))
+	server.Register(new(Transfer)) //注册transfer服务
 
 	for {
 		conn, err := listener.Accept()
