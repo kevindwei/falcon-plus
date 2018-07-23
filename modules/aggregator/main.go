@@ -44,25 +44,25 @@ func main() {
 		os.Exit(0)
 	}
 
-	g.ParseConfig(*cfg)
-	db.Init()
+	g.ParseConfig(*cfg) //初始化配置文件,读取并且储存到对应变量
+	db.Init() //数据库初始化
 
 	go http.Start()
-	go cron.UpdateItems()
+	go cron.UpdateItems()  //从db读取集群监控信息，并push item到链表
 
 	// sdk configuration
-	sender.Debug = g.Config().Debug
-	sender.PostPushUrl = g.Config().Api.PushApi
+	sender.Debug = g.Config().Debug  //赋值给Debug变量
+	sender.PostPushUrl = g.Config().Api.PushApi //赋值给PostPushUrl变量
 
-	sender.StartSender()
+	sender.StartSender() //发送信息到PostPushUrl这个地址,这个地址上面已经初始化了 。在cfg.json
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
-		<-sigs
+		<-sigs  //阻塞等待信号 ctrl+C可以 终端
 		fmt.Println()
-		os.Exit(0)
+		os.Exit(0) //退出程序
 	}()
 
-	select {}
+	select {}  //阻塞
 }

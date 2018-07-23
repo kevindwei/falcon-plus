@@ -29,11 +29,11 @@ func UpdateItems() {
 }
 
 func updateItems() {
-	items, err := db.ReadClusterMonitorItems()
+	items, err := db.ReadClusterMonitorItems() //读取集群监控信息
 	if err != nil {
 		return
 	}
 
-	deleteNoUseWorker(items)
-	createWorkerIfNeed(items)
+	deleteNoUseWorker(items) //删除没有使用的worker(结构体),里面的Quit是chan类型
+	createWorkerIfNeed(items) //添加需要的worker，并启动worker
 }

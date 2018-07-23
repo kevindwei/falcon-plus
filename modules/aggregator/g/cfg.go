@@ -71,13 +71,13 @@ func ParseConfig(cfg string) {
 
 	ConfigFile = cfg
 
-	configContent, err := file.ToTrimString(cfg)
+	configContent, err := file.ToTrimString(cfg) //读取文件转成str，并去掉空格
 	if err != nil {
 		log.Fatalln("read config file:", cfg, "fail:", err)
 	}
 
 	var c GlobalConfig
-	err = json.Unmarshal([]byte(configContent), &c)
+	err = json.Unmarshal([]byte(configContent), &c) //反序列化到c结构体
 	if err != nil {
 		log.Fatalln("parse config file:", cfg, "fail:", err)
 	}

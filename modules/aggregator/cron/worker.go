@@ -40,7 +40,7 @@ func (this Worker) Start() {
 		for {
 			select {
 			case <-this.Ticker.C:
-				WorkerRun(this.ClusterItem)
+				WorkerRun(this.ClusterItem) //push item到链表  并计数
 			case <-this.Quit:
 				if g.Config().Debug {
 					log.Println("[I] drop worker", this.ClusterItem)
@@ -53,7 +53,7 @@ func (this Worker) Start() {
 }
 
 func (this Worker) Drop() {
-	close(this.Quit)
+	close(this.Quit) //关闭chan
 }
 
 var Workers = make(map[string]Worker)

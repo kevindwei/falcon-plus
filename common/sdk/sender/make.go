@@ -64,5 +64,5 @@ func PushCounter(endpoint, metric, tags string, val interface{}, step_and_ts ...
 
 func Push(endpoint, metric, tags string, val interface{}, counterType string, step_and_ts ...int64) {
 	md := MakeMetaData(endpoint, metric, tags, val, counterType, step_and_ts...)
-	MetaDataQueue.PushFront(md)
+	MetaDataQueue.PushFront(md) //放到list开头
 }

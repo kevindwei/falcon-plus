@@ -30,6 +30,7 @@ func ReadClusterMonitorItems() (M map[string]*g.Cluster, err error) {
 		log.Fatalln("ids configuration error")
 	}
 
+	//格式化拼接sql
 	if ids[0] != -1 && ids[1] != -1 {
 		sql = fmt.Sprintf("%s WHERE `id` >= %d and `id` <= %d", sql, ids[0], ids[1])
 	} else {
@@ -46,7 +47,7 @@ func ReadClusterMonitorItems() (M map[string]*g.Cluster, err error) {
 		log.Println(sql)
 	}
 
-	rows, err := DB.Query(sql)
+	rows, err := DB.Query(sql) //执行查找
 	if err != nil {
 		log.Println("[E]", err)
 		return M, err
